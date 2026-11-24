@@ -77,7 +77,7 @@ footer b{width:44px;height:44px;border-radius:50%;background:var(--acc);color:#f
   const caps = ['литералли мои 4 звезды ⭐⭐⭐⭐','кд чд?','окак','емае','бойчик','мяу или не мяу? неизвестно','встречаемся в Саратове. блять, Сараеве','ты бы взяла? неее. но с тобой наверное да','они в рюкзаке вымяукались','перелом задней шерстинки','слаб мрежни сигнал','вкусняшка','ваувау, плюс вайб','Ахахахкхпхаха0','ку кд чд','понпон, рабочий вайбик','мявк','мы в сатурне','+- нормик','мороженое кусни?','я подумала что это ухо эльфа','благодаря этому стал мидлом (был сеньором)','созвон в 14:41 палиндром?','угуг','воть'];
   const cap = document.getElementById('cap');
   if (cap) { let i = 0; const go = () => { i = (i + 1) % caps.length; cap.classList.add('fade'); setTimeout(() => { cap.textContent = caps[i]; cap.classList.remove('fade'); }, 300); };
-    let t = setInterval(go, 6000); (document.getElementById('pic') || cap).addEventListener('click', () => { clearInterval(t); go(); t = setInterval(go, 6000); }); }
+    let t = setInterval(go, 4000); (document.getElementById('pic') || cap).addEventListener('click', () => { clearInterval(t); go(); t = setInterval(go, 4000); }); }
 }
 </script>
 </body></html>
