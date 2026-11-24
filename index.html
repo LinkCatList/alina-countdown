@@ -29,7 +29,7 @@ header b{display:block;font-size:17px}header small{color:var(--acc);font-size:14
 .m time{float:right;margin:6px 0 -4px 10px;font-size:12px;color:var(--meta)}
 .photo{padding:4px;max-width:88%;cursor:pointer}
 .photo img{display:block;width:100%;border-radius:13px}
-.photo p{margin:6px 6px 2px;font-weight:600;min-height:1.4em;transition:opacity .3s}
+.photo p{margin:6px 6px 2px;font-weight:600;min-height:1.4em;transition:opacity .2s}
 .fade{opacity:0}
 .big{align-self:stretch;max-width:none;padding:16px 14px 12px}
 .big h1{margin:0 0 12px;font-size:clamp(24px,6vw,34px);line-height:1.05;font-weight:800;letter-spacing:-.01em}
@@ -40,12 +40,27 @@ header b{display:block;font-size:17px}header small{color:var(--acc);font-size:14
 .done{display:none;font-size:28px;font-weight:800}body.met .cd{display:none}body.met .done{display:block}
 .react{display:inline-block;margin-top:6px;background:light-dark(#d4f0bd,#3a6894);border-radius:12px;padding:1px 8px;font-size:14px}
 footer{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:560px;z-index:3;display:flex;gap:8px;padding:8px 10px 12px;background:linear-gradient(transparent,rgba(0,0,0,.06))}
-footer div{flex:1;background:var(--bar);border-radius:22px;padding:11px 16px;color:var(--meta)}
-footer b{width:44px;height:44px;border-radius:50%;background:var(--acc);color:#fff;display:grid;place-items:center;font-size:13px;flex:none}
+footer form{display:flex;gap:8px;width:100%}
+footer input{flex:1;font:16px "Inter",sans-serif;color:var(--ink);background:var(--bar);border:0;border-radius:22px;padding:12px 16px;outline:none;box-shadow:0 1px 2px rgba(0,0,0,.12)}
+footer input:focus-visible{box-shadow:0 0 0 2px var(--acc)}
+footer input::placeholder{color:var(--meta)}
+footer button{width:46px;height:46px;border-radius:50%;border:0;background:var(--acc);color:#fff;font-size:18px;cursor:pointer;flex:none}
+footer button:focus-visible{outline:3px solid #fff;outline-offset:-5px}
+.riddle{border:2px dashed light-dark(#9fd38a,#4b7aa6)}
+.riddle b{display:block;margin-bottom:2px}
+.m,.typing{scroll-margin-bottom:96px}
+.typing{align-self:flex-start;background:var(--in);border-radius:16px;padding:10px 14px;display:flex;gap:4px}
+.typing i{width:7px;height:7px;border-radius:50%;background:var(--meta);animation:dot 1s infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes dot{50%{opacity:.25;transform:translateY(-3px)}}
+.pop{animation:pop .25s ease-out}@keyframes pop{from{transform:scale(.9);opacity:0}}
+.conf{position:fixed;top:-20px;z-index:9;pointer-events:none;font-size:22px;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(540deg)}}
+@media(prefers-reduced-motion:reduce){.typing i,.pop,.conf{animation:none}.conf{display:none}}
 </style></head><body>
 <div class="wall" id="wall" aria-hidden="true"></div>
 <div class="app">
-<header><div class="ava">АЖ</div><div><b>Алина Жена</b><small>скоро увидимся</small></div></header>
+<header><div class="ava">АЖ</div><div><b>Алина Жена</b><small id="st">скоро увидимся</small></div></header>
 <div class="pin"><i>Закреплённое сообщение</i>Встреча — 9 марта 🍉</div>
 <main class="feed">
   <div class="day">Сегодня</div>
@@ -61,7 +76,7 @@ footer b{width:44px;height:44px;border-radius:50%;background:var(--acc);color:#f
   <div class="m o">Ахахахкхпхаха0<time>12:01</time><br><span class="react">❤️ 2</span></div>
   <div class="m">газ<time>12:02</time></div>
 </main>
-<footer><div>Сообщение</div><b>➤</b></footer>
+<footer><form aria-hidden="true" onsubmit="return false"><input placeholder="Сообщение" tabindex="-1" readonly><button type="button" tabindex="-1">➤</button></form></footer>
 </div>
 <script>
 {const w=['кд чд','окак','емае','мяу','газ','бойчик','имба','вкусняшка','ну это база','так ало','неизвестно','ваувау'];let o='';for(let i=0;i<40;i++){o+=`<span style="left:${(i*37)%100}%;top:${(i*53)%100}%;--r:${(i%7-3)*7}deg;font-size:${14+(i%4)*5}px">${w[i%w.length]}</span>`}document.getElementById('wall').innerHTML=o}
@@ -74,10 +89,11 @@ footer b{width:44px;height:44px;border-radius:50%;background:var(--acc);color:#f
   const tick = () => { let x = Math.floor((target - Date.now()) / 1000); if (x <= 0) { document.body.classList.add('met'); return; }
     set('d', Math.floor(x / 86400)); x %= 86400; set('h', Math.floor(x / 3600)); x %= 3600; set('m', Math.floor(x / 60)); set('s', x % 60); };
   tick(); setInterval(tick, 1000);
-  const caps = ['литералли мои 4 звезды ⭐⭐⭐⭐','кд чд?','окак','емае','бойчик','мяу или не мяу? неизвестно','встречаемся в Саратове. блять, Сараеве','ты бы взяла? неее. но с тобой наверное да','они в рюкзаке вымяукались','перелом задней шерстинки','слаб мрежни сигнал','вкусняшка','ваувау, плюс вайб','Ахахахкхпхаха0','ку кд чд','понпон, рабочий вайбик','мявк','мы в сатурне','+- нормик','мороженое кусни?','я подумала что это ухо эльфа','благодаря этому стал мидлом (был сеньором)','созвон в 14:41 палиндром?','угуг','воть'];
+  const caps = ['литералли мои 4 звезды ⭐⭐⭐⭐','кд чд?','окак','емае','бойчик','мяу или не мяу? неизвестно','встречаемся в Саратове. блять, Сараеве','ты бы взяла? неее. но с тобой наверное да','они в рюкзаке вымяукались','перелом задней шерстинки','слаб мрежни сигнал','вкусняшка','ваувау, плюс вайб','Ахахахкхпхаха0','ку кд чд','понпон, рабочий вайбик','мявк','мы в сатурне','+- нормик','мороженое кусни?','я подумала что это ухо эльфа','благодаря этому стал мидлом (был сеньором)','созвон в 14:41 палиндром?','угуг','воть','оказывается 4 + 1 это не 6','тебе 18 и ты сеньор?','ВЗЯТЬ ЛАБУБУ ДЛЯ АЛИНЫ','я прочитала большую картошку','а мозг глупи не хочет мяукать с миром','Вас исключили из семьи','клон Фенвика','«допиливаем свой форк постгреса»','интерполируем?','А ты уже вымяукала?','мяукни когда приедешь','а ты куда-то миукнула мои скальники?','товарищ курьер а где мой заказ','мама спросила это ии или нет','А че нас депортируют?','ДИМА В КОМАНДЕ RL','че у тебя там за огромные бактерии на фоне','выбери своего бойца','можно я сдамся университету','я все клодом решаю','кого ты выберешь их или нас, нас или их или хых','и пойти работать промышленным альпинистом','ну да я точно не делаю странных покупок','так это не нейротекст..','навыки гуглижа','мракоборцы','man moment','проснутие с феней','ща я настрою доступ мосбиржи к иностранным архивам','делай делай сестра','Я щас спатб?','Жиз или хз?','епаресете','ура смешарики','бляяя мы че реально поедем???????','смешнявка','лапочковое','крутышк!!'];
+  for (let i = caps.length - 1; i > 1; i--) { const j = 1 + Math.floor(Math.random() * i); [caps[i], caps[j]] = [caps[j], caps[i]]; }
   const cap = document.getElementById('cap');
-  if (cap) { let i = 0; const go = () => { i = (i + 1) % caps.length; cap.classList.add('fade'); setTimeout(() => { cap.textContent = caps[i]; cap.classList.remove('fade'); }, 300); };
-    let t = setInterval(go, 4000); (document.getElementById('pic') || cap).addEventListener('click', () => { clearInterval(t); go(); t = setInterval(go, 4000); }); }
+  if (cap) { let i = 0; const go = () => { i = (i + 1) % caps.length; cap.classList.add('fade'); setTimeout(() => { cap.textContent = caps[i]; cap.classList.remove('fade'); }, 220); };
+    let t = setInterval(go, 2000); (document.getElementById('pic') || cap).addEventListener('click', () => { clearInterval(t); go(); t = setInterval(go, 2000); }); }
 }
 </script>
 </body></html>
